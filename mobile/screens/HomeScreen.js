@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput, DrawerLayoutAndroid  } from 'react-native';
 import axios from 'axios';
 import { REACT_APP_BACKEND_URL } from '@env';
+//prop navegación entre pantallas.
 
 const HomeScreen = ({ navigation })  => {
+//se  utilizan los Hoocks
     const [originalData, setOriginalData] = useState(null);
     const [data, setData] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
@@ -12,13 +14,13 @@ const handleAdd = (element) => {
       // Implementa la navegación a tu pantalla deseada 
       navigation.navigate('Reservas',{imageData:element});
     };
-  
+  //se utiliza el hoocks useEffect para obtener los datos
     useEffect(() => {
     const fetchData = async () => {
         try {
         const lugares = REACT_APP_BACKEND_URL + "lugares";
         console.log('URL del backend:', lugares);
-        const response = await axios.get(lugares);
+        const response = await axios.get(lugares);//metodo get y se actualizan los estados
         console.log('Response from the backend:', response.data);
         setData(response.data);
         setOriginalData(response.data);
@@ -29,24 +31,25 @@ const handleAdd = (element) => {
 
     fetchData();
     }, []);
-
+//seimplementa la paginacion sobre cuanto habra en cada pagina
     const itemsPerPage = 3;
     const paginate = (array, pageSize, pageNumber) => {
     return array.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
     };
 
-  // Función para manejar el cambio de página
+  //Para actualizar el estado de currentPage cuando se cambia de pagina
     const handlePageChange = (page) => {
     setCurrentPage(page);
     };
 
     const handleSearch = () => {
         // Filtrar los resultados basados en el nombre
+        //Actualiza los estados data y currentPage después de la búsqueda.
         const filteredData = originalData.filter((element) =>
           element.nombre.toLowerCase().includes(searchText.toLowerCase())
         );
         setData(filteredData);
-        setCurrentPage(1);  // Restablece la página actual después de la búsqueda
+        setCurrentPage(1); 
       };
     
     const drawerRef = React.createRef();
@@ -60,7 +63,7 @@ const handleAdd = (element) => {
           </TouchableOpacity>
         </View>
       );
-      
+      //Se utiliza el método map para renderizar cada elemento de la lista
       return (
         <DrawerLayoutAndroid
             ref={drawerRef}
