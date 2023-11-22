@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, View, StyleSheet, TextInput, ScrollView, Alert } from "react-native";
 import axios from "axios";
-
+//subida 
 const AddReservationScreen = () => {
   const initialReservationState = {
     nombre: "",
@@ -22,7 +22,6 @@ const AddReservationScreen = () => {
   const [reservation, setReservation] = useState(initialReservationState);
   const [mascota, setMascota] = useState(initialMascotaState);
   const [currentStep, setCurrentStep] = useState(1);
-
   const handleChangeText = (value, name) => {
     setReservation({ ...reservation, [name]: value });
   };
@@ -38,7 +37,7 @@ const AddReservationScreen = () => {
   const saveNewReservation = async () => {
     try {
       // Realizar la solicitud para guardar la reserva
-      const response = await axios.post("https://proyecto-backend-production-b20c.up.railway.app/reservas", reservation);
+      const response = await axios.post("https://proyecto32-production.up.railway.app/reservas", reservation);
       console.log("Respuesta de la API (Reserva):", response.data);
 
       // Puedes hacer algo con la respuesta si es necesario
@@ -48,7 +47,7 @@ const AddReservationScreen = () => {
 
       // Luego, guardar la mascota asociada a la reserva
       const idReserva = response.data.id; // Asumiendo que la API devuelve un ID de reserva
-      await axios.post(`https://proyecto-backend-production-b20c.up.railway.app/mascotas/${idReserva}`, mascota);
+      await axios.post(`https://proyecto32-production.up.railway.app/mascotas/${idReserva}`, mascota);
       console.log("Mascota asociada guardada con éxito");
 
       // Restablecer el estado de la mascota después de enviar la solicitud
