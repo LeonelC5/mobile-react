@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput, DrawerLayoutAndroid  } from 'react-native';
 import axios from 'axios';
 import { REACT_APP_BACKEND_URL } from '@env';
-//prop navegación entre pantallas.
-
+//prop navegación entre pantallas
 const HomeScreen = ({ navigation })  => {
 //se  utilizan los Hoocks
     const [originalData, setOriginalData] = useState(null);
